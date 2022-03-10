@@ -1,10 +1,10 @@
 import React from "react";
 import "./PopUp.css";
 
-function PopUp({ item, count, openPopUp, isPopUpOpen }) {
+function PopUp({ item, windowClose, count, openPopUp, isPopUpOpen }) {
   return (
     <>
-      {isPopUpOpen ? (
+      {isPopUpOpen && windowClose ? (
         <div className="PopUp">
           <h3>{count}</h3>
           <button onClick={openPopUp}>X</button>

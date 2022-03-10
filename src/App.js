@@ -6,22 +6,21 @@ import PopUp from "./PopUp/PopUp";
 
 function App() {
   const [isPopUpOpen, setPopUp] = useState(false);
+  const [windowClose, setWindowClose] = useState(true);
 
-  // let [cardsPhoto, setCardsPhoto] = useState({});
+  function window() {
+    if (isPopUpOpen) {
+      setWindowClose(false);
+      setPopUp(false);
+    } else {
+      setWindowClose(true);
+    }
+  }
+
   const [data, setData] = useState([]);
   let getData = fetch("https://fakestoreapi.com/products")
     .then((response) => response.json())
     .then((data) => setData(data));
-
-  // const addCount = (id) => {
-  //   setData((prev) => {
-  //     return prev.map((item) => {
-  //       if (item.id === id) {
-  //         item.count++;
-  //       }
-  //     });
-  //   });
-  // };
 
   // const data = [
   //   { id: 1, title: "Gago" },
@@ -53,7 +52,7 @@ function App() {
   };
 
   return (
-    <div className="wrapper">
+    <div className="wrapper" onClick={window}>
       <NavBar
         openPopUp={openPopUp}
         isPopUpOpen={isPopUpOpen}
@@ -71,7 +70,11 @@ function App() {
           />
         ))}
       </div>
-      <PopUp isPopUpOpen={isPopUpOpen} openPopUp={openPopUp} />
+      <PopUp
+        isPopUpOpen={isPopUpOpen}
+        windowClose={windowClose}
+        openPopUp={openPopUp}
+      />
     </div>
   );
 }

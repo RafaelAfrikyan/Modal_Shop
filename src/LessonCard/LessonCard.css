@@ -16,6 +16,7 @@
   border-radius: 25px;
   margin: 25px;
 }
+
 .buttons > button {
   height: 35px;
   width: 60px;
@@ -36,4 +37,3 @@
   height: 180px;
   margin-bottom: 15px;
 }
-
