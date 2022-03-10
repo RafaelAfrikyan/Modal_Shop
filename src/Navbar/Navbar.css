@@ -6,15 +6,9 @@
   justify-content: space-around;
   height: 70px;
   width: 100%;
-  background-image: linear-gradient(
-    to left,
-    #8994a5,
-    #6e909d,
-    #5a8a89,
-    #5a826b,
-    #69764d
-  );
-  border-bottom: 1px solid black;
+  background-color: white;
+  color: black;
+
   margin-bottom: 80px;
 }
 .NavBar > img {

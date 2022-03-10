@@ -1,16 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, price } from "react";
 import "./LessonCard.css";
 
 function LessonCard({ item, count, onAdd, onSubtract }) {
   return (
     <div className="LessonWrap">
-      <p>{item.title}</p>
       <img src={item.image} alt="sorry"></img>
-      <div className="buttons">
-        <button onClick={onAdd}>+</button>
+      <p>{item.title}</p>
 
-        <button onClick={onSubtract}>-</button>
-        <h3> - {count}</h3>
+      <div className="imgbotom">
+        <h3>Price -{item.price} $ </h3>
+        <div className="buttons">
+          <button onClick={onAdd}>+</button>
+
+          <button onClick={onSubtract}>-</button>
+          <br />
+          <h3> Count - {count}</h3>
+        </div>
       </div>
     </div>
   );

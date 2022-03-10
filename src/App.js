@@ -67,6 +67,7 @@ function App() {
             count={count}
             onAdd={onAdd}
             onSubtract={onSubtract}
+            price={item.price}
           />
         ))}
       </div>
