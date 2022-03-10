@@ -1,0 +1,30 @@
+.NavBar {
+  display: flex;
+  flex-direction: row;
+  color: aliceblue;
+  align-items: center;
+  justify-content: space-around;
+  height: 70px;
+  width: 100%;
+  background-image: linear-gradient(
+    to left,
+    #8994a5,
+    #6e909d,
+    #5a8a89,
+    #5a826b,
+    #69764d
+  );
+  border-bottom: 1px solid black;
+  margin-bottom: 80px;
+}
+.NavBar > img {
+  height: 50px;
+  width: 50px;
+  margin-left: 30px;
+  cursor: pointer;
+}
+
+.wrapNav > div {
+  height: 50px;
+  width: 80px;
+}

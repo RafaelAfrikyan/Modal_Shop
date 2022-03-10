@@ -1,0 +1,36 @@
+.PopUp {
+  width: 300px;
+  height: 500px;
+  border: 1px solid black;
+  border-radius: 25px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  z-index: 99;
+  right: 81px;
+  top: 71px;
+  background-color: antiquewhite;
+  color: black;
+}
+.PopUp > div {
+  color: aliceblue;
+  width: 200px;
+  height: 45px;
+  border: 1px solid black;
+  text-align: center;
+  align-items: center;
+  color: black;
+}
+
+.PopUp > button {
+  position: absolute;
+  height: 25px;
+  width: 25px;
+  border-radius: 15px;
+  border: 1px solid black;
+  margin-bottom: 455px;
+  margin-left: 260px;
+  cursor: pointer;
+}
