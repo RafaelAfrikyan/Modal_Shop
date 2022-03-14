@@ -8,7 +8,6 @@ function App() {
   const [isPopUpOpen, setPopUp] = useState(false);
   const [windowClose, setWindowClose] = useState(true);
   const [data, setData] = useState([]);
-  const [cart, setCart] = useState({});
 
   let componentMounted = true;
 
@@ -32,18 +31,41 @@ function App() {
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
       .then((response) => response.json())
-      .then((data) => setData(data));
+      .then((data) =>
+        setData([
+          ...data,
+          {
+            ...data.map((item) => {
+              item.totalCount = 0;
+            }),
+          },
+        ])
+      );
     return (componentMounted = false);
   }, []);
 
-  const addCount = (id, title) => {
-    const count = cart[id] || 0;
-    setCart({ ...cart, [id]: count + 1 });
+  console.log(data);
+
+  const addCount = (id) => {
+    setData([
+      ...data.map((item) => {
+        if (item.id === id) {
+          item.totalCount++;
+        }
+        return item;
+      }),
+    ]);
   };
 
   const subCount = (id) => {
-    const count = cart[id] || 0;
-    setCart({ ...cart, [id]: count - 1 });
+    setData([
+      ...data.map((item) => {
+        if (item.id === id) {
+          item.totalCount--;
+        }
+        return item;
+      }),
+    ]);
   };
 
   return (
@@ -61,7 +83,7 @@ function App() {
             key={item.id}
             price={item.price}
             addCount={addCount}
-            count={cart[item.id] || 0}
+            totalCount={item.totalCount}
             data={data}
             setData={setData}
             subCount={subCount}
@@ -69,15 +91,15 @@ function App() {
         ))}
       </div>
       <PopUp
-        image={data.map((item) => item.image)}
+        item={data.map((item) => item)}
         id={data.map((item) => item.id)}
-        title={data.map((item) => item.title)}
         isPopUpOpen={isPopUpOpen}
         windowClose={windowClose}
         openPopUp={openPopUp}
-        cart={cart}
-        subCount={subCount}
         data={data}
+        subCount={subCount}
+        addCount={addCount}
+        totalCount={data.map((item) => item.totalCount)}
       />
     </div>
   );

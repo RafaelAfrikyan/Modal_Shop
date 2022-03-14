@@ -7,9 +7,10 @@ function PopUp({
   id,
   title,
   windowClose,
-  subCount,
   isPopUpOpen,
-  cart,
+  totalCount,
+  subCount,
+  addCount,
 }) {
   const stopPropagation = (e) => e.stopPropagation();
 
@@ -18,11 +19,25 @@ function PopUp({
       {isPopUpOpen && windowClose ? (
         <div className="PopUp" onClick={stopPropagation}>
           <h1>Orders </h1>
-          {Object.keys(cart).map((item) => (
-            <p>
-              {item} - {cart[item]}
-            </p>
-          ))}
+          {data.map(
+            (item) =>
+              item.totalCount > 0 && (
+                <div>
+                  {item.title} - {item.totalCount}
+                  <button
+                    onClick={() => {
+                      totalCount > 0 && subCount(id);
+                    }}
+                  >
+                    -
+                  </button>
+                  <button onClick={() => addCount(id)}>
+                    {" "}
+                    +
+                  </button>
+                </div>
+              )
+          )}
 
           <h3>Total price: </h3>
           <button>Pay</button>
