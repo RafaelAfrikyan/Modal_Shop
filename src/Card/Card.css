@@ -28,14 +28,19 @@
 }
 
 .buttons > button {
-  height: 30px;
-  width: 50px;
+  height: 40px;
+  width: 70px;
   cursor: pointer;
   background-color: white;
   color: black;
   border-radius: 35px;
   margin-right: 5px;
   margin-left: 5px;
+  font-size: larger;
+}
+.buttons > button:hover {
+  transform: scale(1.1);
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 .buttons {
   display: flex;
@@ -47,7 +52,7 @@
 
 .LessonWrap > img {
   width: 180px;
-  height: 180px;
+  height: 190px;
   margin-bottom: 15px;
   padding-top: 25px;
 }

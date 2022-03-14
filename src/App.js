@@ -1,12 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import NavBar from "./Navbar/Navbar";
-import LessonCard from "./LessonCard/LessonCard";
+import Card from "./Card/Card";
 import PopUp from "./PopUp/PopUp";
 
 function App() {
   const [isPopUpOpen, setPopUp] = useState(false);
   const [windowClose, setWindowClose] = useState(true);
+  const [data, setData] = useState([]);
+  const [cart, setCart] = useState({});
+
+  let componentMounted = true;
+
+  function openPopUp() {
+    if (isPopUpOpen) {
+      setPopUp(false);
+    } else {
+      setPopUp(true);
+    }
+  }
 
   function window() {
     if (isPopUpOpen) {
@@ -17,38 +29,21 @@ function App() {
     }
   }
 
-  const [data, setData] = useState([]);
-  let getData = fetch("https://fakestoreapi.com/products")
-    .then((response) => response.json())
-    .then((data) => setData(data));
+  useEffect(() => {
+    fetch("https://fakestoreapi.com/products")
+      .then((response) => response.json())
+      .then((data) => setData(data));
+    return (componentMounted = false);
+  }, []);
 
-  // const data = [
-  //   { id: 1, title: "Gago" },
-  //   { id: 2, title: "Haso" },
-  //   { id: 3, title: "Egho" },
-  //   { id: 4, title: "Suro" },
-  //   { id: 5, title: "Tiko" },
-  //   { id: 6, title: "Haso" },
-  //   { id: 7, title: "Egho" },
-  //   { id: 8, title: "Suro" },
-  // ];
+  const addCount = (id, title) => {
+    const count = cart[id] || 0;
+    setCart({ ...cart, [id]: count + 1 });
+  };
 
-  function openPopUp() {
-    if (isPopUpOpen) {
-      setPopUp(false);
-    } else {
-      setPopUp(true);
-    }
-  }
-
-  const [count, setCount] = useState(0);
-
-  const onAdd = () => setCount((count) => count + 1);
-
-  const onSubtract = () => {
-    if (count) {
-      setCount((count) => count - 1);
-    }
+  const subCount = (id) => {
+    const count = cart[id] || 0;
+    setCart({ ...cart, [id]: count - 1 });
   };
 
   return (
@@ -60,21 +55,29 @@ function App() {
       />
       <div className="cardsWrap">
         {data.map((item) => (
-          <LessonCard
+          <Card
             id={item.id}
             item={item}
             key={item.id}
-            count={count}
-            onAdd={onAdd}
-            onSubtract={onSubtract}
             price={item.price}
+            addCount={addCount}
+            count={cart[item.id] || 0}
+            data={data}
+            setData={setData}
+            subCount={subCount}
           />
         ))}
       </div>
       <PopUp
+        image={data.map((item) => item.image)}
+        id={data.map((item) => item.id)}
+        title={data.map((item) => item.title)}
         isPopUpOpen={isPopUpOpen}
         windowClose={windowClose}
         openPopUp={openPopUp}
+        cart={cart}
+        subCount={subCount}
+        data={data}
       />
     </div>
   );
