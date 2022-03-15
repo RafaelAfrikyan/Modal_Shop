@@ -16,15 +16,6 @@
   color: black;
   position: absolute;
 }
-.PopUp > div {
-  color: aliceblue;
-  width: 200px;
-  height: 45px;
-  border: 1px solid black;
-  text-align: center;
-  align-items: center;
-  color: black;
-}
 
 .PopUp > button {
   height: 45px;
@@ -35,4 +26,10 @@
   cursor: pointer;
   background-color: rgb(101, 104, 103);
   opacity: 1;
+}
+
+.basket > button {
+  width: 175px;
+  height: 45px;
+  color: aquamarine;
 }

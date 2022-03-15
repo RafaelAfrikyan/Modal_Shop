@@ -8,6 +8,8 @@ function App() {
   const [isPopUpOpen, setPopUp] = useState(false);
   const [windowClose, setWindowClose] = useState(true);
   const [data, setData] = useState([]);
+  const [counter, setCounter] = useState([]);
+  const [modal, setModal] = useState([]);
 
   let componentMounted = true;
 
@@ -27,6 +29,7 @@ function App() {
       setWindowClose(true);
     }
   }
+  console.log(counter);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
@@ -44,24 +47,50 @@ function App() {
     return (componentMounted = false);
   }, []);
 
-  console.log(data);
-
   const addCount = (id) => {
     setData([
       ...data.map((item) => {
         if (item.id === id) {
           item.totalCount++;
+          if (modal.find((el) => el.id === item.id)) {
+            setModal((modal) => {
+              return modal.map((el) => {
+                if (el.id === item.id) {
+                  return { ...el, totalCount: item.totalCount };
+                }
+                return el;
+              });
+            });
+          } else {
+            setModal((modal) => [...modal, item]);
+          }
         }
         return item;
       }),
     ]);
   };
+  console.log(modal);
 
   const subCount = (id) => {
     setData([
       ...data.map((item) => {
         if (item.id === id) {
           item.totalCount--;
+          if (modal.find((el) => el.id === item.id)) {
+            setModal((modal) => {
+              return modal.map((el) => {
+                if (el.id === item.id) {
+                  return { ...el, totalCount: item.totalCount };
+                }
+                if (el.id === item.id && item.totalCount === 0) {
+                  setModal((modal) => modal.splice(el, 1));
+                }
+                return el;
+              });
+            });
+          } else {
+            setModal((modal) => [...modal, item]);
+          }
         }
         return item;
       }),
@@ -74,6 +103,8 @@ function App() {
         openPopUp={openPopUp}
         isPopUpOpen={isPopUpOpen}
         setPopUp={setPopUp}
+        counter={counter}
+        setCounter={setCounter}
       />
       <div className="cardsWrap">
         {data.map((item) => (
@@ -87,6 +118,8 @@ function App() {
             data={data}
             setData={setData}
             subCount={subCount}
+            counter={counter}
+            setCounter={setCounter}
           />
         ))}
       </div>
@@ -97,9 +130,12 @@ function App() {
         windowClose={windowClose}
         openPopUp={openPopUp}
         data={data}
-        subCount={subCount}
-        addCount={addCount}
+        setData={setData}
         totalCount={data.map((item) => item.totalCount)}
+        counter={counter}
+        setCounter={setCounter}
+        addCount={addCount}
+        subCount={subCount}
       />
     </div>
   );

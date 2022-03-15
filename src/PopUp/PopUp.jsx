@@ -11,6 +11,8 @@ function PopUp({
   totalCount,
   subCount,
   addCount,
+  counter,
+  setCounter,
 }) {
   const stopPropagation = (e) => e.stopPropagation();
 
@@ -21,7 +23,8 @@ function PopUp({
           <h1>Orders </h1>
           {data.map(
             (item) =>
-              item.totalCount > 0 && (
+              item.totalCount > 0 &&
+              (
                 <div>
                   {item.title} - {item.totalCount}
                   <button
@@ -31,12 +34,9 @@ function PopUp({
                   >
                     -
                   </button>
-                  <button onClick={() => addCount(id)}>
-                    {" "}
-                    +
-                  </button>
+                  <button onClick={() => addCount(id)}> +</button>
                 </div>
-              )
+              ), 
           )}
 
           <h3>Total price: </h3>

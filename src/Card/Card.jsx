@@ -10,6 +10,8 @@ function Card({
   addCount,
   data,
   setData,
+  counter,
+  setCounter,
 }) {
   const stopPropagation = (e) => e.stopPropagation();
 
