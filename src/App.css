@@ -17,3 +17,9 @@ body {
   height: 25px;
   width: 65px;
 }
+
+.filterButton {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

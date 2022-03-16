@@ -4,6 +4,7 @@ import "./PopUp.css";
 function PopUp({
   item,
   data,
+  image,
   id,
   title,
   windowClose,
@@ -13,6 +14,7 @@ function PopUp({
   addCount,
   counter,
   setCounter,
+  modal,
 }) {
   const stopPropagation = (e) => e.stopPropagation();
 
@@ -21,12 +23,15 @@ function PopUp({
       {isPopUpOpen && windowClose ? (
         <div className="PopUp" onClick={stopPropagation}>
           <h1>Orders </h1>
-          {data.map(
+          {modal.map(
             (item) =>
-              item.totalCount > 0 &&
-              (
-                <div>
-                  {item.title} - {item.totalCount}
+              item.totalCount > 0 && (
+                <div className="basketPop">
+                  <div>
+                    <img className="image" src={item.image}></img>
+                    {item.title} - <b>{item.totalCount} </b>
+                  </div>
+
                   <button
                     onClick={() => {
                       totalCount > 0 && subCount(id);
@@ -36,7 +41,7 @@ function PopUp({
                   </button>
                   <button onClick={() => addCount(id)}> +</button>
                 </div>
-              ), 
+              )
           )}
 
           <h3>Total price: </h3>

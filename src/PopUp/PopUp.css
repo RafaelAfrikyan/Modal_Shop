@@ -3,7 +3,7 @@
   height: 500px;
   border-radius: 25px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
   flex-direction: column;
   position: absolute;
@@ -14,22 +14,24 @@
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   opacity: 0.9;
   color: black;
-  position: absolute;
 }
 
-.PopUp > button {
-  height: 45px;
-  width: 85px;
+.basketPop > button {
+  height: 35px;
+  width: 45px;
   border-radius: 15px;
   border: 1px solid black;
   font-size: larger;
   cursor: pointer;
-  background-color: rgb(101, 104, 103);
   opacity: 1;
 }
 
-.basket > button {
-  width: 175px;
-  height: 45px;
-  color: aquamarine;
+.basketPop {
+  width: 275px;
+  border: 1px solid black;
+}
+
+.image {
+  width: 35px;
+  height: 35px;
 }

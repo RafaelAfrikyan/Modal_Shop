@@ -10,6 +10,7 @@ function App() {
   const [data, setData] = useState([]);
   const [counter, setCounter] = useState([]);
   const [modal, setModal] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   let componentMounted = true;
 
@@ -29,20 +30,16 @@ function App() {
       setWindowClose(true);
     }
   }
-  console.log(counter);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
       .then((response) => response.json())
-      .then((data) =>
-        setData([
-          ...data,
-          {
-            ...data.map((item) => {
-              item.totalCount = 0;
-            }),
-          },
-        ])
+      .then((data) => {
+        setFilteredProducts(data);
+        setData(data.map(item => {
+          return { ...item, totalCount: 0 }
+        }))
+      }
       );
     return (componentMounted = false);
   }, []);
@@ -69,7 +66,6 @@ function App() {
       }),
     ]);
   };
-  console.log(modal);
 
   const subCount = (id) => {
     setData([
@@ -97,6 +93,19 @@ function App() {
     ]);
   };
 
+  // const addCountModal = (id) => {
+  //   setData([
+  //     ...modal.map((item) => {
+  //       if (item.id === id) {
+  //         item.totalCount++;
+  //       }
+  //       return item;
+  //     }),
+  //   ]);
+  // };
+
+  console.log(data)
+
   return (
     <div className="wrapper" onClick={window}>
       <NavBar
@@ -106,8 +115,47 @@ function App() {
         counter={counter}
         setCounter={setCounter}
       />
+
+      <div className="filterButton">
+        <button
+          onClick={() => {
+            console.log(data);
+            setFilteredProducts(prev => data);
+          }}
+        >
+          All
+        </button>
+        <button
+          onClick={() => {
+            setFilteredProducts(
+              data.filter((item) => item.category === "men's clothing")
+            );
+          }}
+        >
+          Mens
+        </button>
+        <button
+          onClick={() => {
+            setFilteredProducts(
+              data.filter((item) => item.category === "jewelery")
+            );
+          }}
+        >
+          Jewelery
+        </button>
+        <button
+          onClick={() => {
+            setFilteredProducts(
+              data.filter((item) => item.category === "electronics")
+            );
+          }}
+        >
+          Electronics
+        </button>
+      </div>
+
       <div className="cardsWrap">
-        {data.map((item) => (
+        {filteredProducts.map((item) => (
           <Card
             id={item.id}
             item={item}
@@ -124,18 +172,16 @@ function App() {
         ))}
       </div>
       <PopUp
-        item={data.map((item) => item)}
-        id={data.map((item) => item.id)}
+        item={modal.map((item) => item)}
+        id={modal.map((item) => item.id)}
+        image={modal.map((item) => item.image)}
         isPopUpOpen={isPopUpOpen}
         windowClose={windowClose}
         openPopUp={openPopUp}
-        data={data}
-        setData={setData}
-        totalCount={data.map((item) => item.totalCount)}
-        counter={counter}
-        setCounter={setCounter}
-        addCount={addCount}
-        subCount={subCount}
+        totalCount={modal.map((item) => item.totalCount)}
+        modal={modal}
+        addCountModal={addCount}
+        subCountModal={subCount}
       />
     </div>
   );
